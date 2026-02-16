@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+/* ========== THEME (Tailwind v4 @theme) ========== */
+@theme {
+  --color-background: #0c0d14;
+  --color-card: #13141e;
+  --color-card-hover: #1a1c2a;
+  --color-surface: #161822;
+  --color-input: #181a26;
+  --color-border: #22263a;
+
+  --color-primary: #4f2d80;
+  --color-primary-hover: #3f2368;
+  --color-primary-soft: rgba(79,45,128,0.12);
+  --color-primary-glow: rgba(79,45,128,0.25);
+
+  --color-accent: #198d63;
+  --color-accent-hover: #147552;
+  --color-accent-soft: rgba(25,141,99,0.12);
+  --color-accent-glow: rgba(25,141,99,0.25);
+
+  --color-text: #e2e4ef;
+  --color-text-muted: #7c8099;
+  --color-text-dim: #4e5270;
+
+  --color-success: #198d63;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #60a5fa;
+}
+
+/* ========== LEGACY CSS VARS ========== */
+@layer base {
+  :root {
+    --primary: #4f2d80;
+    --primary-hover: #3f2368;
+    --primary-soft: rgba(79,45,128,0.12);
+    --primary-glow: rgba(79,45,128,0.25);
+    --accent: #198d63;
+    --accent-hover: #147552;
+    --accent-soft: rgba(25,141,99,0.12);
+    --accent-glow: rgba(25,141,99,0.25);
+    --bg: #0c0d14;
+    --bg-card: #13141e;
+    --bg-card-hover: #1a1c2a;
+    --bg-input: #181a26;
+    --bg-surface: #161822;
+    --text: #e2e4ef;
+    --text-muted: #7c8099;
+    --text-dim: #4e5270;
+    --border: #22263a;
+    --success: #198d63;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --info: #60a5fa;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.25);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+
+  a { color: var(--primary); text-decoration: none; }
+}
+
+/* ========== COMPONENTS ========== */
+@layer components {
+
+  /* GLASS */
+  .glass-card {
+    background: rgba(19, 20, 30, 0.8);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 1rem;
+    transition: all 0.2s;
+  }
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  }
+
+  /* LAYOUT */
+  .app-layout { display: flex; min-height: 100vh; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 0 15px var(--primary-glow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 25px var(--primary-glow); }
+
+  /* INPUT */
+  .input-field {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    transition: border-color var(--transition);
+  }
+  .input-field:focus { outline: none; border-color: var(--primary); }
+  .input-field::placeholder { color: var(--text-dim); }
+
+  select.input-field { cursor: pointer; }
+  select.input-field option { background: var(--bg-card); color: var(--text); }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 260px;
+    height: 100vh;
+    border-right: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(40px);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    flex-shrink: 0;
+    z-index: 20;
+    -webkit-app-region: drag;
+    overflow-y: auto;
+  }
+
+  /* MODAL */
+  .modal-backdrop {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 60;
+    animation: fadeIn 0.2s;
+  }
+  .modal-content {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 24px;
+    width: 90%; max-width: 420px;
+    animation: slideUp 0.2s;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    flex: 1;
+    padding: 28px 36px;
+    min-height: 100vh;
+    overflow-y: auto;
+    max-height: 100vh;
+    background: linear-gradient(135deg, var(--bg) 0%, var(--bg) 70%, #0f1520 100%);
+    position: relative;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .main-content::-webkit-scrollbar { display: none; }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes slideUp { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+
+@layer components {
+  .animate-slide-up { animation: slideUp 0.4s ease-out; }
+  .animate-shake { animation: shake 0.4s; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* ========== SCROLLBAR & UTILITIES ========== */
+@layer utilities {
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(79,45,128,0.5);
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .drag-region { -webkit-app-region: drag; }
+  .no-drag { -webkit-app-region: no-drag; }
+
+  .shadow-neon { box-shadow: 0 0 20px rgba(79,45,128,0.4); }
+
+  /* Window controls (frameless Win/Linux) */
+  .window-controls {
+    -webkit-app-region: no-drag;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+  }
+  .wc-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    width: 46px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .wc-btn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+  .wc-close:hover { background: #e81123; color: #fff; }
+}
